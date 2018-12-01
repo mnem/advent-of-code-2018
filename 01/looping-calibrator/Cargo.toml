@@ -1,0 +1,6 @@
+[package]
+name = "looping-calibrator"
+version = "0.1.0"
+authors = ["David Wagner <mnem@noiseandheat.com>"]
+
+[dependencies]
