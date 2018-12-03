@@ -1,0 +1,7 @@
+[package]
+name = "overlaps"
+version = "0.1.0"
+authors = ["David Wagner <mnem@noiseandheat.com>"]
+
+[dependencies]
+regex = "1"
