@@ -1,0 +1,8 @@
+[package]
+name = "sleepiest-minute"
+version = "0.1.0"
+authors = ["David Wagner <mnem@noiseandheat.com>"]
+
+[dependencies]
+regex = "1"
+chrono = "0.4"
