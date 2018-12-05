@@ -37,34 +37,18 @@ fn unique_units(string: &str) -> Vec<char> {
 }
 
 fn reduce(string: String) -> String {
-    let mut output = string;
-    loop {
-        let input = output;
-        output = String::from("");
-
-        let mut last_unit = None;
-        for unit in input.chars() {
-            match last_unit {
-                Some(previous) => {
-                    if is_reactive(previous, unit) {
-                        last_unit = None;
-                    } else {
-                        output.push(previous);
-                        last_unit = Some(unit);
-                    }
-                },
-                None => last_unit = Some(unit),
-            }
+    string.chars().fold(String::new(), |mut acc, c| {
+        match acc.pop() {
+            Some(last) => {
+                if !is_reactive(last, c) {
+                    acc.push(last);
+                    acc.push(c);
+                }
+            },
+            None => acc.push(c),
         }
-
-        if let Some(last_unit) = last_unit {
-            output.push(last_unit);
-        }
-
-        if output.len() == input.len() {
-            return output;
-        }
-    }
+        acc
+    })
 }
 
 fn is_reactive(a: char, b: char) -> bool {
