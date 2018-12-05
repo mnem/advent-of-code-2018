@@ -1,6 +1,5 @@
 use std::fs;
 use std::cmp::min;
-use std::collections::HashSet;
 
 fn main() {
     let input = read_input();
@@ -29,11 +28,10 @@ fn process(input: &str) -> usize {
 }
 
 fn unique_units(string: &str) -> Vec<char> {
-    let mut uniques = HashSet::new();
-    for unit in string.chars() {
-        uniques.insert(unit.to_ascii_lowercase());
-    }
-    uniques.into_iter().collect()
+    let mut unique: Vec<char> = string.chars().map( |c| { c.to_ascii_lowercase() } ).collect();
+    unique.sort();
+    unique.dedup();
+    return unique;
 }
 
 fn reduce(string: String) -> String {
