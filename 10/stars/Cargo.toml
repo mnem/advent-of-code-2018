@@ -1,0 +1,9 @@
+[package]
+name = "stars"
+version = "0.1.0"
+authors = ["David Wagner <mnem@noiseandheat.com>"]
+edition = "2018"
+
+[dependencies]
+regex = "1"
+image = "*"
