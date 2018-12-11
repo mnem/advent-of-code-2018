@@ -73,22 +73,12 @@ impl GameState {
     }
 
     fn place_normal_marble(&mut self, marble: usize) {
-        // Rotate the buffer CW
-        for _ in 0..2 {
-            let v = self.placed_marbles.pop_front().expect("Can't rotate CW");
-            self.placed_marbles.push_back(v);
-        }
-
+        self.placed_marbles.rotate(2);
         self.placed_marbles.push_front(marble);
     }
 
     fn place_23_marble(&mut self, marble: usize) {
-        // Rotate the buffer CCW
-        for _ in 0..7 {
-            let v = self.placed_marbles.pop_back().expect("Can't rotate CCW");
-            self.placed_marbles.push_front(v);
-        }
-
+        self.placed_marbles.rotate(-7);
         let taken_marble = self.placed_marbles.pop_front().expect("Could not take marble");
 
         let player = marble % self.player_scores.len();
@@ -106,6 +96,31 @@ impl GameState {
         }
         assert_ne!(0, high_score);
         return (high_player, high_score);
+    }
+}
+
+trait Rotating {
+    fn rotate(&mut self, steps: i32);
+}
+
+impl<T> Rotating for VecDeque<T> {
+    fn rotate(&mut self, steps: i32) {
+        if steps == 0 {
+            return;
+        }
+
+        let clockwise = steps > 0;
+        if clockwise {
+            for _ in 0..steps.abs() {
+                let v = self.pop_front().expect("Can't rotate CW");
+                self.push_back(v);
+            }
+        } else {
+            for _ in 0..steps.abs() {
+                let v = self.pop_back().expect("Can't rotate CCW");
+                self.push_front(v);
+            }
+        }
     }
 }
 
